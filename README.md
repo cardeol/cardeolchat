@@ -2,6 +2,10 @@
 
 This project is a chat app written in React/Redux/WebSockets
 
+### `npm install`
+
+Install all the node dependencies.<br>
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
@@ -21,7 +25,7 @@ Launches the socket server for the chat application<br>
 * Persistent state with Redux subscribed to localStorage
 * Types included in separate modules for Post Actions and reducers
 
-Chat.js
+### Chat.js
 
 * Smileys support inline (done)
 * Unread message counter badge when not in the chat view (done)
@@ -29,12 +33,12 @@ Chat.js
 * link to an image (done)
 * link to any other anchor (done)
 
-Settings.js 
+### Settings.js 
 
 * Reactive worflow on settings save (2 themes, clock format for messages, ctrl+enter) (done)
 * Internationalization - I18n implemented in App.js as (done)
 
-TODO:
+### TODO
 
 * Unit Testing (TODO)
 * JSdoc Markdown (TODO)
