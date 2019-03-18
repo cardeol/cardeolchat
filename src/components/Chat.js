@@ -9,9 +9,6 @@ import Messages from './Messages'
 import Utils from '../lib/Utils';
 import InputBox from './inputBox';
 
-
-const { I18n } = require('react-i18nify');
-
 const styles = (theme) => ({
     toolbar: theme.mixins.toolbar,
     sectionDesktop: {

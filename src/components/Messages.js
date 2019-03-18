@@ -41,10 +41,10 @@ const Message = ({ message, settings }) => {
             <a href={link}>{link}</a>
         ) : null}
         {(link.indexOf("youtu") >= 0) ? (
-            <iframe src={link} style={{ width: "80%", height: "auto", marginLeft: "auto", marginRight: "auto"}}></iframe>
+            <iframe title={ "video_" + id } src={link} style={{ width: "80%", height: "auto" }}></iframe>
         ) : null}
         {(link.indexOf(".png") >= 0) || link.indexOf(".gif") >= 0 || link.indexOf(".jpeg") >= 0 || link.indexOf(".jpg") >= 0 ? (
-            <img src={link} style={{ width: "80%", height: "auto", marginLeft: "auto", marginRight: "auto" }} />
+            <img alt={ "image_" + id } src={link} style={{ width: "80%", height: "auto", marginLeft: "auto", marginRight: "auto" }} />
         ) : null}
     </div>)
     if(message.type === messageTypes.WARNING_MESSAGE) {

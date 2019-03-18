@@ -23,11 +23,11 @@ class InputBox extends React.Component  {
     };
 
     setSmiley = (e) => {
-        this.setState({ msg: this.state.msg + " :-) <3 :wink: 😸 :D  ^__^" });
+        this.setState({ msg: this.state.msg + " :-) <3 :wink: 😸 :D  ^__^" }); // emoji example
     }
 
     submit = (e) => {
-        if(this.state.msg != "") {
+        if(this.state.msg !== "") {
             this.props.handleSubmit(this.state.msg);
             this.setState({ msg: '' });
         }        
