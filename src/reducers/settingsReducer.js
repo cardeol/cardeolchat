@@ -1,0 +1,36 @@
+import { ActionTypes } from '../actions/actionTypes'
+
+
+const defaultState = () => {
+    return {
+        user_name: "guest" + Math.floor(Math.random()*10000 + 1000),
+        interface_theme: "light",
+        clock_display: "HH:mm",
+        messages_on_enter: true,
+        language: 'en'
+    }
+}
+
+const settingsReducer = (state = defaultState(), action) => {
+    if (action.type === ActionTypes.RESET_TO_DEFAULTS) {
+        var user = state.user_name;
+        let initState = defaultState();
+        return {            
+            ...state,   // set previous state
+            ...initState, // override with default state
+            messages: [],
+            user_name: user // override previous saved user
+        }
+    }
+
+    if (action.type ===  ActionTypes.SAVE_SETTINGS) {
+        return {
+            ...state,
+            ...action.settings
+        }
+    }
+
+    return state;
+}
+
+export default settingsReducer;
