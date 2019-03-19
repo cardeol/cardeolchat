@@ -10,15 +10,14 @@ import { Actions } from './actions/postActions';
 import io from 'socket.io-client';
 import './App.css';
 
-
 const { I18n } = require('react-i18nify');
 
 const styles = (theme) => ({
   toolbar: theme.mixins.toolbar  
 });
 
-const themeDark = createMuiTheme({  palette: { type: 'dark'  }});
-const themeLight = createMuiTheme({ palette: { type: 'light' }});
+const themeDark = createMuiTheme({  palette: { type: 'dark'  }, useNextVariants: true });
+const themeLight = createMuiTheme({ palette: { type: 'light' }, useNextVariants: true });
 
 I18n.setTranslations({ // can be loaded from a file
   en: {
@@ -65,13 +64,15 @@ I18n.setTranslations({ // can be loaded from a file
   }
 });
 
-const SOCKET_SERVER = 'http://localhost:8082'
-
+/**
+ * Main Class and bootstrap facade
+ */
 class App extends Component {
   
   constructor(props) {
     super(props);
-    this.socket = io.connect(SOCKET_SERVER);   
+    console.log(props);
+    this.socket = io.connect(props.settings.socket_server);   
     props.hasBeenConnected(false);
     this.socket.on("connect", () => {
       props.hasBeenConnected(true);
@@ -111,7 +112,9 @@ class App extends Component {
     );
   }
 }
-
+/**  
+ * @param {*} dispatch mapper for dispatcher -> props (postActions)
+ */
 const mapDispatchToProps = (dispatch) => {
   return {
     receiveMessage: (message) => dispatch(Actions.receiveMessage(message)),
@@ -120,6 +123,11 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
+/**
+ * 
+ * @param {*} state  Redux state
+ * @param {*} ownProps  Own Properties
+ */
 const mapStateToProps = (state, ownProps) => {
   return {
     settings: state.settingsReducer

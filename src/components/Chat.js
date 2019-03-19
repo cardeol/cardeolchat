@@ -10,15 +10,12 @@ import Utils from '../lib/Utils';
 import InputBox from './inputBox';
 
 const styles = (theme) => ({
-    toolbar: theme.mixins.toolbar,
-    sectionDesktop: {
-        display: 'none',
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-        },
-    },
+    toolbar: theme.mixins.toolbar    
 });
 
+/**
+ * @summary Chat page connected to the redux store
+ */
 class Chat extends React.Component {
 
     scrollDebounce = Utils.debounce(() => {  // avoid being called too many times at once

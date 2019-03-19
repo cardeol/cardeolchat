@@ -1,19 +1,27 @@
 import { ActionTypes } from '../actions/actionTypes'
 import { messageTypes } from './messageTypes';
 
+/**
+ * @summary Initial State for the chat
+ */
 const initState = () => {
     let m = [];
     return { 
-        messages: m,
-        unread: 0,
-        connection_state: false,
-        mid: 0
+        messages: m,  // Message Array
+        unread: 0, // number of unread messages
+        connection_state: false, // is socket connected ?
+        mid: 0 // latest ID for the message array
     }
 };
 
-
+/**
+ * 
+ * @param {object} state Redux State
+ * @param {object} action Action performed by the distpatcher
+ */
 const chatReducer = (state = initState(), action) => {    
     let newid = state.mid + 1;
+    const MAX_MESSAGES_TO_DISPLAY = 20;
     if (action.type === ActionTypes.CLEAR_UNREAD) {
         return {
             ...state,
@@ -35,7 +43,9 @@ const chatReducer = (state = initState(), action) => {
         return {
             ...state,
             mid: newid,
-            messages: [...state.messages, ErrorMessage]
+            messages:  [...state.messages.slice(1 - MAX_MESSAGES_TO_DISPLAY)
+                        .filter((e) => e.type !== messageTypes.WARNING_MESSAGE), 
+                        ErrorMessage ] 
         }
     }
     if (action.type === ActionTypes.IS_CONNECTED) {
@@ -56,7 +66,9 @@ const chatReducer = (state = initState(), action) => {
             ...state,            
             mid: newid,
             unread: state.unread + 1,
-            messages: [...state.messages.slice(-19).filter((e) => e.type !== messageTypes.WARNING_MESSAGE) , newMessage ]            
+            messages: [...state.messages.slice(1 - MAX_MESSAGES_TO_DISPLAY)
+                       .filter((e) => e.type !== messageTypes.WARNING_MESSAGE),  
+                       newMessage ]            
         }
     }
 

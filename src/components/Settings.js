@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
 import { Actions } from '../actions/postActions';
 
-const { I18n } = require('react-i18nify');
+const { I18n } = require('react-i18nify'); 
 
 const styles = (theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -30,6 +30,9 @@ const styles = (theme) => ({
     },
 });
 
+/**
+ * @summary Settings page, connected to the redux store
+ */
 class Settings extends React.Component {
 
     handleData = key => (event) => {

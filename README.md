@@ -24,6 +24,7 @@ Launches the socket server for the chat application<br>
 * CSS Modules (Material-UI)
 * Persistent state with Redux subscribed to localStorage
 * Types included in separate modules for Post Actions and reducers
+* JSdoc Markdown ES6
 
 ### Chat.js
 
@@ -31,6 +32,7 @@ Launches the socket server for the chat application<br>
 * Unread message counter badge when not in the chat view (done)
 * Link parser with youtube (done)
 * link to an image (done)
+* link parser for emails (done)
 * link to any other anchor (done)
 
 ### Settings.js 
@@ -41,5 +43,5 @@ Launches the socket server for the chat application<br>
 ### TODO
 
 * Unit Testing (TODO)
-* JSdoc Markdown (TODO)
+
 

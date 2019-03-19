@@ -1,6 +1,5 @@
 
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Badge from '@material-ui/core/Badge'
 import { Link } from 'react-router-dom'
@@ -12,10 +11,6 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
 const { I18n } = require('react-i18nify');
-
-const styles = {
-    
-};
 
 class Navbar extends React.Component {
     
@@ -48,4 +43,4 @@ const mapStateToProps = (state, ownProps) => {
     }    
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Navbar));
+export default connect(mapStateToProps)(Navbar);
