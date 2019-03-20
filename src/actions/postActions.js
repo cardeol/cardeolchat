@@ -23,7 +23,8 @@ export const Actions = {
             settings: newsettings
         }
     },
-    sendMessage: (message)  => {        
+    sendMessage: (socket, message)  => {        
+        socket.emit("send_message", message); // dom mounted in app.js
         return {
             ...message,
             type: ActionTypes.CHAT_SEND_MESSAGE,

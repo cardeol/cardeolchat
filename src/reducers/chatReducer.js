@@ -29,8 +29,7 @@ const chatReducer = (state = initState(), action) => {
         }
     }
     if(action.type === ActionTypes.CHAT_SEND_MESSAGE) {
-        if(state.connection_state) {
-            window.socket.emit("send_message", action); // dom mounted in app.js
+        if(state.connection_state) {            
             return state;
         }
         let ErrorMessage ={
@@ -48,6 +47,7 @@ const chatReducer = (state = initState(), action) => {
                         ErrorMessage ] 
         }
     }
+
     if (action.type === ActionTypes.IS_CONNECTED) {
         return {
             ...state,

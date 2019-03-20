@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Actions } from './actions/postActions';
 import io from 'socket.io-client';
+import { SocketContext } from './hoc/SocketContext';
 import './App.css';
 
 const { I18n } = require('react-i18nify');
@@ -64,23 +65,21 @@ I18n.setTranslations({ // can be loaded from a file
   }
 });
 
+
 /**
  * Main Class and bootstrap facade
  */
 class App extends Component {
+
+  socket = null;
   
   constructor(props) {
     super(props);
-    console.log(props);
     this.socket = io.connect(props.settings.socket_server);   
     props.hasBeenConnected(false);
     this.socket.on("connect", () => {
       props.hasBeenConnected(true);
     });
-  }
-
-  componentWillMount() {
-     window.socket = this.socket;
   }
   
   componentDidMount() {
@@ -93,25 +92,28 @@ class App extends Component {
   render() {
     // bootstraping
     const { settings } = this.props;
-    const SettingsTheme = settings.interface_theme === "light" ? themeLight : themeDark; // setting theme stored in redux
-    I18n.setLocale(settings.language); // setting language for i18n    
+    const SettingsTheme = settings.interface_theme === "light" ? themeLight : themeDark; // setting theme stored in redux    
+    I18n.setLocale(settings.language); // setting language for i18n        
     return (
-      <MuiThemeProvider theme={SettingsTheme}>
-      <BrowserRouter>
-        <div className="App">          
-          <Navbar className="AppHeader" />     
-            <div className="AppContent">
-              <Switch>
-                <Route exact path="/" component={Chat} />
-                <Route path="/settings" component={Settings} />
-              </Switch>
+      <SocketContext.Provider value={this.socket}>
+        <MuiThemeProvider theme={SettingsTheme}>
+        <BrowserRouter>
+          <div className="App">          
+            <Navbar className="AppHeader" />     
+              <div className="AppContent">
+                <Switch>
+                  <Route exact path="/" component={Chat} />
+                  <Route path="/settings" component={Settings} />
+                </Switch>
+            </div>
           </div>
-        </div>
-        </BrowserRouter>
-      </MuiThemeProvider>
+          </BrowserRouter>
+        </MuiThemeProvider>
+      </SocketContext.Provider>
     );
   }
 }
+
 /**  
  * @param {*} dispatch mapper for dispatcher -> props (postActions)
  */
@@ -121,8 +123,6 @@ const mapDispatchToProps = (dispatch) => {
     hasBeenConnected: (cstate) => dispatch(Actions.hasBeenConnected(cstate)) 
   }
 }
-
-
 /**
  * 
  * @param {*} state  Redux state

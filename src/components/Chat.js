@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import Messages from './Messages'
 import Utils from '../lib/Utils';
 import InputBox from './inputBox';
+import { SocketContext } from '../hoc/SocketContext';
 
 const styles = (theme) => ({
     toolbar: theme.mixins.toolbar    
@@ -18,20 +19,22 @@ const styles = (theme) => ({
  */
 class Chat extends React.Component {
 
+    static contextType = SocketContext; // socket passed as a local context from provider to this.context
+
     scrollDebounce = Utils.debounce(() => {  // avoid being called too many times at once
         var t = document.getElementById("_endChatNode");
         if(!t) return;
         var e = t.parentNode.parentNode;
         e.scrollTop = e.scrollHeight;                       
     },700);
-    
+       
     handleSubmit = (txt) => {
         if (txt === "") return false;
         let msg = {
             text: txt,
             user: this.props.settings.user_name
         };
-        this.props.sendMessage(msg);
+        this.props.sendMessage(this.context, msg);
         this.scrollDebounce();       
         return false;
     }
@@ -45,8 +48,11 @@ class Chat extends React.Component {
         this.scrollDebounce();
         this.props.clearUnread();             
     }
+
+    
         
     render(props) {        
+        
         const { classes } = this.props;
         const messagesOnEnter = this.props.settings.messages_on_enter;     
         return (
@@ -76,11 +82,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {    
     return {
         saveSettings: (settings) => dispatch(Actions.saveSettings(settings)),
-        sendMessage: (message) => dispatch(Actions.sendMessage(message)),
+        sendMessage: (socket, message) => dispatch(Actions.sendMessage(socket, message)),
         clearUnread: () => dispatch(Actions.clearUnread())
     }
 }
-
 
 Chat.propTypes = {
     settings: PropTypes.object.isRequired
