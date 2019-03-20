@@ -87,7 +87,9 @@ const Message = ({ message, settings }) => {
                 <a target="_blank" href={"mailto:" + link}>{link}</a>
             ) : null}
             {isYoutube ? ( // youtube iframe
-                <iframe title={"video_" + id} src={link} style={{ width: "80%", height: "auto" }}></iframe>
+                <div className="yt_container">
+                <iframe title={"video_" + id} src={link} className="yt_video"></iframe>
+                </div>
             ) : null}
             {isImage ? ( // image
                 <img alt={"image_" + id} src={link} style={{ width: "80%", height: "auto", marginLeft: "auto", marginRight: "auto" }} />

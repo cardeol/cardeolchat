@@ -53,9 +53,9 @@ class Settings extends React.Component {
       const  { settings } = this.props;
       return (
           <div className="ChatPage">         
-              <div className={classes.toolbar} />   
-              <h3> {I18n.t('application.settings')}</h3> 
+              <div className={classes.toolbar} />                   
                 <Paper className="ChatContent">  
+                <h3>{I18n.t('application.settings')}</h3>                  
                 <FormControl component="fieldset" className={classes.formControl}>                                                 
                   <TextField
                       id="outlined-name"

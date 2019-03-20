@@ -35,17 +35,24 @@ class InputBox extends React.Component  {
     
     render() {
         const { messagesOnEnter } = this.props;
+        const { theme } = this.props;
         return (
         <Grid container>
             <Grid item xs={12} style={{ width: "100%", textAlign: "right", display: "flex", flexDirection: "row" }}>
                 <TextField
-                    color="inherit"
                     label={I18n.t('application.your_message')}
-                    style={{ float: "left", flexGrow: 1 }}                    
+                    style={{ float: "left", flexGrow: 1 }}                
+                    className="InputBox"
                     variant="outlined"
                     value={this.state.msg}
                     autoFocus={true}
                     onChange={this.handleChange}
+                    InputProps={{
+                        style: { 
+                            color: "black",
+                            background: theme === "dark" ? "#DDDDDD" : "#EEEEEE"
+                        }
+                    }}
                     onKeyDown={event => {
                         // if (event.ctrlKey) check if ctrl is present
                         if (messagesOnEnter && event.key === "Enter") {

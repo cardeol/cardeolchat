@@ -65,7 +65,7 @@ class Chat extends React.Component {
                     </List>
                 </Paper>                          
                 <div className="ChatFooter">           
-                    <InputBox handleSubmit={this.handleSubmit} messagesOnEnter={messagesOnEnter} />                   
+                    <InputBox handleSubmit={this.handleSubmit} messagesOnEnter={messagesOnEnter} theme={this.props.settings.interface_theme} />                   
                 </div>                
             </div>
         )
